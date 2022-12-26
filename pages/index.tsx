@@ -1,5 +1,6 @@
 import Head from "next/head";
-import Presets from "../components/Presets";
+import DonationForm from "../components/DonationForm";
+import PrevDonations from "../components/PrevDonations";
 
 export default function Home() {
   return (
@@ -10,9 +11,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex">
-        <h1>Buy me a 🍺</h1>
-        <Presets />
+      <main className="flex justify-center gap-20 my-6">
+        <PrevDonations />
+        <DonationForm />
       </main>
     </>
   );

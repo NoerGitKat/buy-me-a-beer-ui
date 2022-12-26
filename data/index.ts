@@ -1,0 +1,1 @@
+export const donationPresets = [1, 5, 20];
