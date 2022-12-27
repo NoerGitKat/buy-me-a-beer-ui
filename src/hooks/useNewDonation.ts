@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useDonation = () => {
+const useNewDonation = () => {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -8,4 +8,4 @@ const useDonation = () => {
   return { setQuantity, quantity, name, setName, message, setMessage };
 };
 
-export default useDonation;
+export default useNewDonation;

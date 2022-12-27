@@ -3,18 +3,18 @@ import { ChangeEvent } from "react";
 import { DONATION_IN_CENTS, MAX_DONATION_IN_CENTS } from "../constants";
 import { donationPresets } from "../data";
 import { handleCheckout } from "../handlers";
-import { useDonation, useError } from "../hooks";
+import { useError, useNewDonation } from "../hooks";
 import Alert from "./Alert";
 
 const DonationForm = () => {
   const router = useRouter();
   const { name, setName, message, setMessage, quantity, setQuantity } =
-    useDonation();
+    useNewDonation();
   const { error, setError } = useError();
 
   return (
     <section className="max-w-md">
-      <h1>Buy me a beer!</h1>
+      <h1 className="text-2xl font-semibold text-black">Buy me a beer!</h1>
       {error && (
         <Alert
           bgColor="#FFF0F0"
@@ -118,19 +118,20 @@ const DonationForm = () => {
           </label>
         </aside>
 
-        <button
-          role="submit"
-          className="bg-blue-500 rounded shadow px-4 py-2 text-white"
-        >
-          Donate ${quantity * (DONATION_IN_CENTS / 100)}
-        </button>
+        <aside className="flex items-center justify-between">
+          <button
+            role="submit"
+            className="bg-blue-500 rounded shadow px-4 py-2 text-white"
+          >
+            Donate ${quantity * (DONATION_IN_CENTS / 100)}
+          </button>
+          <p>
+            {quantity === MAX_DONATION_IN_CENTS / DONATION_IN_CENTS
+              ? "Wow! Am I already drunk? 😵‍💫"
+              : "Thank you!"}
+          </p>
+        </aside>
       </form>
-
-      <p>
-        {quantity === MAX_DONATION_IN_CENTS / DONATION_IN_CENTS
-          ? "I can't believe it! Am I already drunk? 😵‍💫"
-          : "Thank you!"}
-      </p>
     </section>
   );
 };

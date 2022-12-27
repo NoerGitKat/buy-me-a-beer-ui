@@ -1,5 +1,6 @@
 import { NextRouter } from "next/router";
 import { Dispatch, FormEvent, SetStateAction } from "react";
+import { TDonationResponse } from "../../types";
 
 export async function handleCheckout(
   event: FormEvent<HTMLFormElement>,
@@ -26,5 +27,21 @@ export async function handleCheckout(
     }
 
     router.push(url);
-  } catch (error) {}
+  } catch (error) {
+    console.error("Error!", error);
+  }
+}
+
+export async function fetchDonations() {
+  try {
+    const response = await fetch("/api/donations", {
+      method: "GET",
+    });
+
+    const donations = (await response.json()) as TDonationResponse;
+
+    return donations;
+  } catch (error) {
+    console.error("Couldn't fetch donations from server!", error);
+  }
 }

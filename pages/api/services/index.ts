@@ -1,1 +1,1 @@
-export { default as insertIntoAirtable } from "./insert-into-airtable";
+export { getFromAirtable, insertIntoAirtable } from "./airtable";
