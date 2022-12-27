@@ -4,6 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 import { STRIPE_API_KEY, STRIPE_WEBHOOK_SECRET } from "../../src/constants";
 import { TStripeMetaData } from "../../types";
+import { insertIntoAirtable } from "./services";
 
 const stripe = new Stripe(STRIPE_API_KEY, {
   apiVersion: "2022-08-01",
@@ -44,7 +45,19 @@ export default async function handler(
     return res.status(400).json({ message: "Invalid signature!" });
   }
 
-  const { metadata } = event.data.object as TStripeMetaData;
+  const { metadata, amount_total } = event.data.object as TStripeMetaData;
+
+  try {
+    await insertIntoAirtable({
+      ...metadata,
+      amount: amount_total / 100,
+    });
+  } catch (error) {
+    console.error("Error!", error);
+    return res
+      .status(500)
+      .json({ message: "Couldn't create a record in Airtable." });
+  }
 
   return res.status(200).json({ message: "Checkout complete!" });
 }
