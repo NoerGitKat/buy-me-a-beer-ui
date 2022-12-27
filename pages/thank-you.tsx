@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 
 export default function ThankYou() {
   return (
@@ -9,8 +10,13 @@ export default function ThankYou() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex justify-center gap-20 my-6">
-        <h1>Thank you man! That is very kind of you.</h1>
+      <main>
+        <section className="flex flex-col items-center gap-4 max-w-sm m-auto mt-10">
+          <Link href="/">
+            <strong>👈 Go Home</strong>
+          </Link>
+          <h1>Thank you! That is so kind of you.</h1>
+        </section>
       </main>
     </>
   );
